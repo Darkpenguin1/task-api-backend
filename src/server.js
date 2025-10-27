@@ -2,6 +2,11 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import taskRoutes from './routes/taskRoutes.js';
+import YAML from 'yamljs';
+import swaggerUi from 'swagger-ui-express';
+
+const specs = YAML.load('./public/bundled.yaml');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +19,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/tasks', taskRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use((req, res, next) => {
   res.status(404).json({ error: 'Not found' });
