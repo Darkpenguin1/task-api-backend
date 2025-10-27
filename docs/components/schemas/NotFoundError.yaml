@@ -1,0 +1,10 @@
+type:
+properties:
+  error:
+    type: string
+    example: Error item not found 
+  details:
+    type: array
+    items:
+      type: string
+    
